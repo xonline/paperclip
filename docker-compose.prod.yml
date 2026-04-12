@@ -1,0 +1,32 @@
+services:
+  server:
+    build: .
+    network_mode: host
+    env_file:
+      - .env.prod
+    environment:
+      HOST: "127.0.0.1"
+      PORT: "3100"
+      SERVE_UI: "true"
+      PAPERCLIP_DEPLOYMENT_MODE: "authenticated"
+      PAPERCLIP_DEPLOYMENT_EXPOSURE: "private"
+      PAPERCLIP_PUBLIC_URL: "https://hq.nowoly.com"
+      PAPERCLIP_AUTH_DISABLE_SIGN_UP: "true"
+      HEARTBEAT_SCHEDULER_ENABLED: "true"
+      HEARTBEAT_SCHEDULER_INTERVAL_MS: "30000"
+      PAPERCLIP_HOME: "/paperclip"
+    group_add:
+      - "988"
+    volumes:
+      - /home/ubuntu/paperclip-data:/paperclip
+      - /home/ubuntu/paperclip-data/claude-config:/host-claude-config:rw
+      - /var/run/docker.sock:/var/run/docker.sock
+      - /usr/bin/docker:/usr/bin/docker:ro
+      - /usr/bin/msmtp:/usr/bin/msmtp:ro
+      - /home/ubuntu/.msmtprc:/root/.msmtprc:ro
+      - /usr/lib/aarch64-linux-gnu/libgsasl.so.18:/usr/lib/aarch64-linux-gnu/libgsasl.so.18:ro
+      - /usr/lib/aarch64-linux-gnu/libsecret-1.so.0:/usr/lib/aarch64-linux-gnu/libsecret-1.so.0:ro
+      - /usr/lib/aarch64-linux-gnu/libidn.so.12:/usr/lib/aarch64-linux-gnu/libidn.so.12:ro
+      - /usr/lib/aarch64-linux-gnu/libntlm.so.0:/usr/lib/aarch64-linux-gnu/libntlm.so.0:ro
+      - /usr/lib/aarch64-linux-gnu/libgssglue.so.1:/usr/lib/aarch64-linux-gnu/libgssglue.so.1:ro
+    restart: unless-stopped

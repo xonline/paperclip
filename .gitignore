@@ -57,3 +57,13 @@ tests/release-smoke/playwright-report/
 .superset/
 .claude/worktrees/
 .env.prod
+
+# Nowoly-specific setup scripts (not upstream)
+setup-org.sh
+setup-routines.sh
+org-ids.env
+Dockerfile.bak.*
+scripts/update-all-agents-to-opencode.ts
+
+# Skill API keys — never commit credentials
+skills/**/*.key

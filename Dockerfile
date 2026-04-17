@@ -2,7 +2,11 @@
 FROM node:lts-trixie-slim AS base
 ARG USER_UID=1000
 ARG USER_GID=1000
-RUN apt-get update \
+RUN sed -i \
+    -e 's|snapshot\.debian\.org/archive/debian/[0-9TZ]*|deb.debian.org/debian|g' \
+    -e 's|snapshot\.debian\.org/archive/debian-security/[0-9TZ]*|deb.debian.org/debian-security|g' \
+    /etc/apt/sources.list.d/*.sources \
+  && apt-get update \
   && apt-get install -y --no-install-recommends ca-certificates gosu curl git wget ripgrep python3 openssh-client jq \
   && rm -rf /var/lib/apt/lists/* \
   && ARCH=$(dpkg --print-architecture) \

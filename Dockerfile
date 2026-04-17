@@ -3,8 +3,14 @@ FROM node:lts-trixie-slim AS base
 ARG USER_UID=1000
 ARG USER_GID=1000
 RUN apt-get update \
-  && apt-get install -y --no-install-recommends ca-certificates gosu curl gh git wget ripgrep python3 \
+  && apt-get install -y --no-install-recommends ca-certificates gosu curl git wget ripgrep python3 openssh-client jq \
   && rm -rf /var/lib/apt/lists/* \
+  && ARCH=$(dpkg --print-architecture) \
+  && GH_VERSION=2.69.0 \
+  && wget -nv -O/tmp/gh.tar.gz "https://github.com/cli/cli/releases/download/v${GH_VERSION}/gh_${GH_VERSION}_linux_${ARCH}.tar.gz" \
+  && tar xz -C /tmp -f /tmp/gh.tar.gz \
+  && mv "/tmp/gh_${GH_VERSION}_linux_${ARCH}/bin/gh" /usr/local/bin/gh \
+  && rm -rf /tmp/gh.tar.gz "/tmp/gh_${GH_VERSION}_linux_${ARCH}" \
   && corepack enable
 
 # Modify the existing node user/group to have the specified UID/GID to match host user

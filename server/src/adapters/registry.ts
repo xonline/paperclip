@@ -69,6 +69,16 @@ import {
   agentConfigurationDoc as piAgentConfigurationDoc,
 } from "@paperclipai/adapter-pi-local";
 import {
+  execute as nvidiaExecute,
+  testEnvironment as nvidiaTestEnvironment,
+} from "@paperclipai/adapter-nvidia-nim/server";
+import {
+  type as nvidiaType,
+  label as nvidiaLabel,
+  models as nvidiaModels,
+  agentConfigurationDoc as nvidiaAgentConfigurationDoc,
+} from "@paperclipai/adapter-nvidia-nim";
+import {
   execute as hermesExecute,
   testEnvironment as hermesTestEnvironment,
   sessionCodec as hermesSessionCodec,
@@ -232,6 +242,17 @@ const piLocalAdapter: ServerAdapterModule = {
   agentConfigurationDoc: piAgentConfigurationDoc,
 };
 
+const nvidiaNimAdapter: ServerAdapterModule = {
+  type: nvidiaType,
+  execute: nvidiaExecute,
+  testEnvironment: nvidiaTestEnvironment,
+  models: nvidiaModels,
+  supportsLocalAgentJwt: false,
+  supportsInstructionsBundle: false,
+  requiresMaterializedRuntimeSkills: false,
+  agentConfigurationDoc: nvidiaAgentConfigurationDoc,
+};
+
 // hermes-paperclip-adapter v0.2.0 predates the authToken field; cast is
 // intentional until hermes ships a matching AdapterExecutionContext type.
 const executeHermesLocal = hermesExecute as unknown as ServerAdapterModule["execute"];
@@ -313,6 +334,7 @@ function registerBuiltInAdapters() {
   for (const adapter of [
     claudeLocalAdapter,
     codexLocalAdapter,
+    nvidiaNimAdapter,
     openCodeLocalAdapter,
     piLocalAdapter,
     cursorLocalAdapter,

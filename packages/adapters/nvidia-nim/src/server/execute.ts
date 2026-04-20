@@ -38,7 +38,7 @@ export async function execute(ctx: AdapterExecutionContext): Promise<AdapterExec
   const baseUrl = asString(config.baseUrl, DEFAULT_NVIDIA_NIM_BASE_URL).trim().replace(/\/$/, "");
   const maxTokens = asNumber(config.maxTokens, 4096);
   const temperature = asNumber(config.temperature, 0.7);
-  const timeoutSec = asNumber(config.timeoutSec, 120);
+  const timeoutSec = asNumber(config.timeoutSec, 300);
   const promptTemplate = asString(
     config.promptTemplate,
     "You are agent {{agent.id}} ({{agent.name}}). Continue your Paperclip work.",
@@ -178,7 +178,7 @@ export async function execute(ctx: AdapterExecutionContext): Promise<AdapterExec
     signal: null,
     timedOut: false,
     usage: { inputTokens, outputTokens },
-    provider: "minimaxai",
+    provider: model.includes("/") ? model.split("/")[0] : "nvidia_nim",
     biller: "nvidia_nim",
     model,
     billingType: "credits",

@@ -1,7 +1,6 @@
 ---
 name: paid-ads
 description: Plan, write, and optimise paid advertising campaigns for Meta Ads (Facebook + Instagram) and Google Ads (Search, Display, Performance Max). Use this skill whenever the user wants to create an ad campaign, write ad copy, set up targeting, plan a budget, audit ad performance, or improve ROAS — even if they just say "run some Facebook ads" or "set up Google ads for my business". Also use for landing page brief reviews related to ad campaigns.
-origin: nowoly
 ---
 
 # Paid Ads

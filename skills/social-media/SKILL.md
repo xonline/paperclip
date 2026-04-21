@@ -1,7 +1,6 @@
 ---
 name: social-media
 description: Create, write, and plan social media content across Instagram, Facebook, Twitter/X, LinkedIn, and TikTok. Use this skill whenever the user wants to write a post, caption, thread, content calendar, hashtag strategy, social copy, or plan content for any social platform — even if they just say "write something for Instagram" or "what should I post". Also use for repurposing existing content across platforms.
-origin: nowoly
 ---
 
 # Social Media
